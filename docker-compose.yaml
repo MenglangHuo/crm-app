@@ -1,0 +1,85 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: crm-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: crm-app
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-crm-bot@123}
+    ports:
+      - "${POSTGRES_HOST_PORT:-54323}:5432"
+    volumes:
+      - crm_pgdata:/var/lib/postgresql/data
+    networks:
+      - crm-net
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+#  crm-service:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    container_name: crm-service
+#    restart: unless-stopped
+#    depends_on:
+#      postgres:
+#        condition: service_healthy
+#      rabbitmq:
+#        condition: service_healthy
+#    environment:
+#      # Database Configuration
+#      DATABASE_HOST: postgres  # Use service name for container-to-container communication
+#      DATABASE_PORT: 5432      # Container port, not host port
+#      DATABASE_NAME: crm-app
+#      DATABASE_USERNAME: ${POSTGRES_USER:-postgres}
+#      DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-crm-bot@123}
+#
+#      # Hikari Connection Pool
+#      HIKARI_MAX_POOL: 20
+#      HIKARI_MIN_IDLE: 5
+#      HIKARI_CON_TIMEOUT: 30000
+#      HIKARI_IDLE_TIMEOUT: 600000
+#      HIKARI_MAX_LIFETIME: 1800000
+#      HIKARI_KEEP_ALIVE: 300000
+#
+#      # JPA/Hibernate
+#      JPA_SHOW_SQL: "false"
+#      HIBERNATE_FORMAT_SQL: "false"
+#      HIBERNATE_DDL_AUTO: update
+#
+#
+#
+#      # Spring Boot specific
+#      SPRING_PROFILES_ACTIVE: "docker"
+
+      # Java Performance
+#      JAVA_OPTS: "-Xmx512m -Xms256m -XX:+UseG1GC -XX:MaxGCPauseMillis=200"
+#    ports:
+#      - "${APP_PORT:-8088}:8088"
+#    networks:
+#      - crm-net
+#    healthcheck:
+#      test: [ "CMD", "curl", "-f", "http://localhost:8088/api/v1/health/actuator" ]
+#      interval: 30s
+#      timeout: 10s
+#      retries: 5
+#    deploy:
+#      resources:
+#        limits:
+#          memory: 768M
+#        reservations:
+#          memory: 512M
+
+networks:
+  crm-net:
+
+volumes:
+  crm_pgdata:
+#  telegram_rabbitmq_data:
+#  telegram_redis_data:
