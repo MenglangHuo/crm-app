@@ -37,7 +37,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public CompanyResponse view(Long id) {
+    public CompanyResponse get(Long id) {
         Company company = companyRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Company", "id", id));
         return companyMapper.toResponse(company);

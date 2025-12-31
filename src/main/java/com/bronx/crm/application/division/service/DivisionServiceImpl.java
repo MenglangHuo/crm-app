@@ -46,7 +46,7 @@ public class DivisionServiceImpl implements DivisionService {
     }
 
     @Override
-    public DivisionResponse view(Long id) {
+    public DivisionResponse get(Long id) {
         Division division = divisionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Division", "id", id));
         return divisionMapper.toResponse(division);

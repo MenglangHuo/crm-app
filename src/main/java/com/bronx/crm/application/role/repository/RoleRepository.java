@@ -1,6 +1,6 @@
 package com.bronx.crm.application.role.repository;
 
-import com.bronx.crm.domain.rbac.entity.Role;
+import com.bronx.crm.domain.identity.entity.Role;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.domain.Page;
@@ -15,10 +15,23 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
 
     Optional<Role> findByName(String name);
 
-    boolean existsByName(String name);
+    @Query("select (count(r) > 0) from Role r where r.name = ?1 and r.company.id = ?2")
+    boolean existsByNameAndCompanyId(String name,Long companyId);
 
-    @Query("SELECT r FROM Role r WHERE r.company.id = :companyId")
-    Page<Role> findByCompanyId(@Param("companyId") Long companyId, Pageable pageable);
+    @Query("select (count(r) > 0) from Role r where r.name = ?1 and r.company.id = ?2 and r.id!=?3")
+    boolean existsByNameAndCompanyId(String name,Long companyId,Long roleId);
+
+
+    @Query("""
+    SELECT r FROM Role r
+    WHERE r.company.id = :companyId
+      AND (:name IS NULL OR LOWER(r.name) LIKE LOWER(CONCAT('%', :name, '%')))
+""")
+    Page<Role> findByCompanyIdAndName(
+            @Param("companyId") Long companyId,
+            @Param("name") String name,
+            Pageable pageable
+    );
 
     @Query("SELECT r FROM Role r WHERE r.company.id = :companyId AND r.deletedAt is null")
     Page<Role> findByCompanyIdAndIsActive(@Param("companyId") Long companyId,

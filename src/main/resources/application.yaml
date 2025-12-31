@@ -66,6 +66,17 @@ spring:
       fail-on-empty-beans: false
 
 
+# OTP Configuration
+otp:
+  expiry-minutes: 2
+  max-attempts: 3
+  rate-limit-minutes: 1
+  length: 6
+
+sms:
+  enabled: false  # Set to true when ready to send real SMS
+  provider: TWILIO  # Options: TWILIO, AWS_SNS, VONAGE
+
   # Actuator for health checks
 management:
   endpoints:

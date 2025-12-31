@@ -63,7 +63,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 
     @Override
-    public DepartmentResponse view(Long id) {
+    public DepartmentResponse get(Long id) {
         Department department = departmentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Department", "id", id));
         return departmentMapper.toResponse(department);

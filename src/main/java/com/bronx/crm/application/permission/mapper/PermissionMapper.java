@@ -3,7 +3,7 @@ package com.bronx.crm.application.permission.mapper;
 
 import com.bronx.crm.application.permission.dto.PermissionRequest;
 import com.bronx.crm.application.permission.dto.PermissionResponse;
-import com.bronx.crm.domain.rbac.entity.Permission;
+import com.bronx.crm.domain.identity.entity.Permission;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;

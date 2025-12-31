@@ -2,7 +2,7 @@ package com.bronx.crm.application.role.mapper;
 
 import com.bronx.crm.application.role.dto.RoleRequest;
 import com.bronx.crm.application.role.dto.RoleResponse;
-import com.bronx.crm.domain.rbac.entity.Role;
+import com.bronx.crm.domain.identity.entity.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;

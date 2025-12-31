@@ -38,7 +38,7 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public LocationResponse view(Long id) {
+    public LocationResponse get(Long id) {
         return locationMapper.toResponse(this.findById(id));
     }
 

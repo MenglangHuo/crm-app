@@ -2,6 +2,7 @@ package com.bronx.crm.application.module.mapper;
 
 import com.bronx.crm.application.module.dto.ModuleRequest;
 import com.bronx.crm.application.module.dto.ModuleResponse;
+import com.bronx.crm.domain.identity.entity.Module;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;

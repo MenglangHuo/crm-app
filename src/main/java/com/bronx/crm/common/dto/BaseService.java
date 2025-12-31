@@ -7,7 +7,7 @@ import com.bronx.crm.application.division.dto.DivisionResponse;
 //@Param E is Entity
 public interface BaseService<R,T> {
     T create(R dto);
-    T view(Long id);
+    T get(Long id);
     T delete(Long id);
     T update(Long id,R dto);
 

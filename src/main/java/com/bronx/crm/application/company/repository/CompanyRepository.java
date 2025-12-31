@@ -22,11 +22,6 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
     @Query("select (count(c) > 0) from Company c where c.name = ?1")
     boolean existsByName(String name);
 
-    Optional<Company> findByIdAndDeletedAtIsNull(Long id);
-
-    Page<Company> findAllByDeletedAtIsNull(Pageable pageable);
-
-    List<Company> findAllByIsActiveTrueAndDeletedAtIsNull();
 
     @Query("SELECT c FROM Company c WHERE c.name LIKE %:name% AND c.deletedAt IS NULL")
     Page<Company> searchByName(@Param("name") String name, Pageable pageable);
