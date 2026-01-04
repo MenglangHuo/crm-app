@@ -1,0 +1,26 @@
+package com.bronx.crm.domain.security.auth.dto;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+import lombok.*;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class ResetPasswordRequest {
+    @NotEmpty(message = "Phone number is required")
+    private String phone;
+    @NotEmpty(message = "OTP code is required")
+    @Size(min = 6, max = 6, message = "OTP code must be 6 digits")
+    private String otpCode;
+    @NotEmpty(message = "New password is required")
+    @Size(min = 8, max = 100, message = "Password must be between 8 and 100 characters")
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$", message = "Password must contain at least one digit, one lowercase, one uppercase, one special character, and no whitespace")
+    private String newPassword;
+    @NotBlank(message = "Confirm password is required")
+    private String confirmPassword;
+}
+
